@@ -6,20 +6,23 @@ const urlPokemon = 'https://pokeapi.co/api/v2/pokemon/1';
 const urlRick = 'https://rickandmortyapi.com/api/character/1';
 
 function App() {
-  const fetchPoke = useFetchCharacters(urlPokemon)
-  const pokeData = fetchPoke.data
-
-  const fetchRick = useFetchCharacters(urlRick)
-  const rickData = fetchRick.data
+  const {data: pokeData, loading: pokeLoading, error: pokeError} = useFetchCharacters(urlPokemon)
+  const {data: rickData, loading: rickLoading, error: rickError} = useFetchCharacters(urlRick)
 
   return (
     <>
-      {fetchPoke.loading && <h2>Loading...</h2>}
-      {fetchPoke.error && <h2>{fetchPoke.error.message}</h2>}
-      {pokeData && <Card charName={pokeData.name} charImage={pokeData.sprites.front_default}/>}
-      {fetchRick.loading && <h2>Loading...</h2>}
-      {fetchRick.error && <h2>{fetchRick.error.message}</h2>}
-      {rickData && <Card charName={rickData.name} charImage={rickData.image}/>}
+      {pokeLoading ? (
+        <h2>Loading...</h2>
+        ) : (
+          <Card charName={pokeData.name} charImage={pokeData.sprites.front_default} />
+        )}
+      {pokeError && <h2>{pokeError}</h2>}
+      {rickLoading ? (
+        <h2>Loading...</h2>
+      ) : (
+        <Card charName={rickData.name} charImage={rickData.image} loading={rickLoading} error={rickError}/>
+      )}
+      {rickError && <h2>{rickError}</h2>}
     </>
   );
 }

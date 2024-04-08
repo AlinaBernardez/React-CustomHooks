@@ -1,4 +1,4 @@
-const Card = ({charName, charImage}) => {
+const Card = ({charName, charImage }) => {
     return (
         <div>
             <h2>{charName}</h2>

@@ -14,7 +14,6 @@ export const useFetchCharacters = (url) => {
                 const json = await response.json()
                 setData(json)
                 setLoading(false)
-                setError(null)
             }
             catch(err) {
                 setError(err)
